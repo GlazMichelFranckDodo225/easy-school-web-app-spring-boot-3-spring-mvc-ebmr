@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Easy School Web Application | Master Spring Boot 3 and Spring MVC</title>
 </head>
 <body>
-    <h1>Welcome to Easy School</h1>
+    <!-- <h1>Welcome to Easy School</h1> -->
+    <h1 th:text="'Hello, ' + ${username} + ' ! Welcome to Easy School Design with Thymeleaf'"></h1>
 </body>
 </html>
