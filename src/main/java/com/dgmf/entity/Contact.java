@@ -5,11 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @NoArgsConstructor @AllArgsConstructor @Builder
+@Data @Builder
 public class Contact {
-    private String name;
-    private String mobileNum;
-    private String email;
-    private String subject;
-    private String message;
+    private final String name;
+    private final String mobileNum;
+    private final String email;
+    private final String subject;
+    private final String message;
 }
