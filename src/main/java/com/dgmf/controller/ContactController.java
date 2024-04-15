@@ -20,7 +20,6 @@ public class ContactController {
     // private static Logger log = LoggerFactory.getLogger(ContactController.class);
     private final ContactService contactService;
 
-
     @RequestMapping("/contact")
     public String displayContactPage() {
         return "contact.html";
