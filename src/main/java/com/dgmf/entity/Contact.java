@@ -1,5 +1,6 @@
 package com.dgmf.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,13 +8,14 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.NoArgsConstructor;
 
 /*
 @Data annotation is provided by Lombok library which generates getter, setter,
 equals(), hashCode(), toString() methods & Constructor at compile time.
 This makes our code short and clean.
 * */
-@Data @Builder
+@Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class Contact {
 
     /*
