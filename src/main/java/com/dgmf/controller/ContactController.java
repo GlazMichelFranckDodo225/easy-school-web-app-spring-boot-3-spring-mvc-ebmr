@@ -2,19 +2,16 @@ package com.dgmf.controller;
 
 import com.dgmf.entity.Contact;
 import com.dgmf.service.ContactService;
+import com.dgmf.service.impl.ContactServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,6 +20,7 @@ public class ContactController {
     // Already Done by "@Slf4j" Lombok Annotation
     // private static Logger log = LoggerFactory.getLogger(ContactController.class);
     private final ContactService contactService;
+    private final ContactServiceImpl contactServiceImpl;
 
     @RequestMapping("/contact")
     public String displayContactPage(Model model) {
@@ -70,6 +68,10 @@ public class ContactController {
 
         // Without Error Perform the Business Logic
         contactService.saveMessageDetails(contact);
+
+        contactServiceImpl.setCounter(contactServiceImpl.getCounter()+1);
+        log.info("Number of times the Contact form is submitted : " +
+                contactServiceImpl.getCounter());
 
         // Redirect to Handler Method
         return "redirect:/contact";
