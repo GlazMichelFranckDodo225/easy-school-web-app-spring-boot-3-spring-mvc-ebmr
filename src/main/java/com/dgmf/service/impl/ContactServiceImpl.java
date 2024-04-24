@@ -5,10 +5,12 @@ import com.dgmf.service.ContactService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Service
 @Slf4j
-@RequestScope
+// @RequestScope
+@SessionScope
 public class ContactServiceImpl implements ContactService {
     // Already Done by "@Slf4j" Lombok Annotation
     // private static Logger log = LoggerFactory.getLogger(ContactServiceImpl.class);
