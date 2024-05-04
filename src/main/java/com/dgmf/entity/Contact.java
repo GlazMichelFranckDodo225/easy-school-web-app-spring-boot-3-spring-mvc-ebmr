@@ -1,21 +1,15 @@
 package com.dgmf.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.*;
 
 /*
 @Data annotation is provided by Lombok library which generates getter, setter,
 equals(), hashCode(), toString() methods & Constructor at compile time.
 This makes our code short and clean.
 * */
-@Data @NoArgsConstructor @AllArgsConstructor @Builder
+@Data
 public class Contact {
 
     /*
@@ -28,7 +22,7 @@ public class Contact {
     private String name;
 
     @NotBlank(message="Mobile number must not be blank")
-    @Pattern(regexp="(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
+    @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
     private String mobileNum;
 
     @NotBlank(message="Email must not be blank")

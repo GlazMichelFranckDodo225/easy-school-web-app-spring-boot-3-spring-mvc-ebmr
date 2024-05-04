@@ -19,8 +19,7 @@ Author URL: http://w3layouts.com
 <body>
 
     <!-- header -->
-	<div th:replace="~{header :: header}">...</div>
-    <!-- <div th:replace="header :: header"></div> -->
+    <div th:replace="~{header :: header}">...</div>
     <!-- //header -->
 
     <!-- inner banner -->
@@ -47,37 +46,26 @@ Author URL: http://w3layouts.com
             <div class="row contact-block">
                 <div class="col-md-7 contact-right">
                     <ul>
-                        <!-- Fetch a List of Errors inside the Fields of the Contact Bean and Iterate inside It -->
-                        <li class="alert alert-danger" role="alert" th:each="error : ${#fields.errors('contact.*')}" th:text="${error}"></li>
+                        <li class="alert alert-danger" role="alert" th:each="error : ${#fields.errors('contact.*')}" th:text="${error}" />
                     </ul>
-                    <form th:action="@{/saveMsg}" method="post" class="signin-form" th:object="${contact}">
-                    <!-- <form action="/saveMsg" method="post" class="signin-form" th:object="${contact}"> -->
+                    <form action="/saveMsg" method="post" class="signin-form" th:object="${contact}">
                         <div class="input-grids">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <!-- <input type="text" name="name" id="name" placeholder="Your Name"
-                                        class="contact-input" required/> -->
                                     <input type="text" th:field="*{name}" placeholder="Your Name"
-                                        class="contact-input"/>
+                                        class="contact-input" />
                                 </div>
                                 <div class="col-sm-6">
-                                    <!-- <input type="text" name="mobileNum" id="mobileNum" placeholder="Your Mobile Number"
-                                        class="contact-input" /> -->
                                     <input type="text" th:field="*{mobileNum}" placeholder="Your Mobile Number"
                                         class="contact-input" />
                                 </div>
                             </div>
-                            <!-- <input type="email" name="email" id="email" placeholder="Your Email"
-                                class="contact-input" required/> -->
                             <input type="text" th:field="*{email}" placeholder="Your Email"
-                                class="contact-input"/>
-                            <!-- <input type="text" name="subject" id="subject" placeholder="Subject"
-                                class="contact-input" /> -->
+                                class="contact-input" />
                             <input type="text" th:field="*{subject}" placeholder="Subject"
                                 class="contact-input" />
                         </div>
                         <div class="form-input">
-                            <!-- <textarea name="message" id="message" placeholder="Type your message here"></textarea> -->
                             <textarea th:field="*{message}" placeholder="Type your message here"></textarea>
                         </div>
                         <div class="text-start">
@@ -139,8 +127,7 @@ Author URL: http://w3layouts.com
     <!-- //contact block -->
 
     <!-- footer block -->
-	<div th:replace="~{footer :: footer}">...</div>
-    <!-- <div th:replace="footer :: footer"></div> -->
+    <div th:replace="~{footer :: footer}">...</div>
     <!-- //footer block -->
 
     <!-- Js scripts -->
