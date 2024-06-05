@@ -1,9 +1,14 @@
 package com.dgmf.service;
 
+import com.dgmf.constant.EazySchoolConstants;
 import com.dgmf.entity.Contact;
+import com.dgmf.repository.ContactRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.ApplicationScope;
+
+import java.time.LocalDateTime;
 
 /*
 @Slf4j, is a Lombok-provided annotation that will automatically generate an SLF4J
@@ -11,12 +16,9 @@ Logger static property in the class at compilation time.
 * */
 @Slf4j
 @Service
-// @RequestScope
-// @SessionScope
-@ApplicationScope
 public class ContactService {
-
-    private int counter = 0;
+    @Autowired
+    private ContactRepository contactRepository;
 
     public ContactService(){
         System.out.println("Contact Service Bean initialized");
@@ -28,17 +30,16 @@ public class ContactService {
      * @return boolean
      */
     public boolean saveMessageDetails(Contact contact){
-        boolean isSaved = true;
-        //TODO - Need to persist the data into the DB table
-        log.info(contact.toString());
+        boolean isSaved = false;
+        contact.setStatus(EazySchoolConstants.OPEN);
+        contact.setCreatedBy(EazySchoolConstants.ANONYMOUS);
+        contact.setCreatedAt(LocalDateTime.now());
+        
+        int result = contactRepository.saveContactMsg(contact);
+        if (result > 0) {
+            isSaved = true;
+        }
+
         return isSaved;
-    }
-
-    public int getCounter() {
-        return counter;
-    }
-
-    public void setCounter(int counter) {
-        this.counter = counter;
     }
 }
