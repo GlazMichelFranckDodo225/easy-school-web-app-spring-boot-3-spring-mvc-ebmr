@@ -34,7 +34,6 @@ public class HolidaysController {
         List<Holiday> holidayList = StreamSupport
                 .stream(holidays.spliterator(), false)
                 .collect(Collectors.toList());
-        
         Holiday.Type[] types = Holiday.Type.values();
         for (Holiday.Type type : types) {
             model.addAttribute(type.toString(),
