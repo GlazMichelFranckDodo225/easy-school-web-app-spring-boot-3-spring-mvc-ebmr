@@ -1,17 +1,36 @@
 package com.dgmf.entity;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 import jakarta.validation.constraints.*;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.validator.constraints.UUID;
 
 /*
 @Data annotation is provided by Lombok library which generates getter, setter,
 equals(), hashCode(), toString() methods & Constructor at compile time.
 This makes our code short and clean.
 * */
+@EqualsAndHashCode(callSuper = true)
 @Data
+@Entity
+@Table(name="contact_msg")
 public class Contact extends BaseEntity {
-    private Integer contactId;
+    // New Version Since Hibernate 6.2
+    /*@Id
+    @UuidGenerator
+    @Column(name = "contact_id")
+    private UUID contactId;*/
+
+    // Deprecated Since Hibernate 6.2
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
+    @GenericGenerator(name = "native",strategy = "native")
+    @Column(name = "contact_id")
+    private int contactId;
     /*
     * @NotNull: Checks if a given field is not null but allows empty values & zero elements inside collections.
       @NotEmpty: Checks if a given field is not null and its size/length is greater than zero.
