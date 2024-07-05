@@ -29,15 +29,16 @@ public class ContactService {
         boolean isSaved = false;
         contact.setStatus(EazySchoolConstants.OPEN);
         Contact savedContact = contactRepository.save(contact);
+
         if(null != savedContact && savedContact.getContactId()>0) {
             isSaved = true;
         }
+
         return isSaved;
     }
 
     public List<Contact> findMsgsWithOpenStatus(){
-        List<Contact> contactMsgs =
-                contactRepository.findByStatus(EazySchoolConstants.OPEN);
+        List<Contact> contactMsgs = contactRepository.findByStatus(EazySchoolConstants.OPEN);
 
         return contactMsgs;
     }
@@ -48,8 +49,8 @@ public class ContactService {
         contact.ifPresent(contact1 -> {
             contact1.setStatus(EazySchoolConstants.CLOSE);
         });
-
         Contact updatedContact = contactRepository.save(contact.get());
+
         if(null != updatedContact && updatedContact.getUpdatedBy()!=null) {
             isUpdated = true;
         }
