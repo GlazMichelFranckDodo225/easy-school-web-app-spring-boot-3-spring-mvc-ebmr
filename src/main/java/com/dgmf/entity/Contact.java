@@ -1,13 +1,12 @@
 package com.dgmf.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
-
-import jakarta.validation.constraints.*;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UuidGenerator;
-import org.hibernate.validator.constraints.UUID;
 
 /*
 @Data annotation is provided by Lombok library which generates getter, setter,
@@ -27,8 +26,7 @@ public class Contact extends BaseEntity {
 
     // Deprecated Since Hibernate 6.2
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
-    @GenericGenerator(name = "native",strategy = "native")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "contact_id")
     private int contactId;
     /*

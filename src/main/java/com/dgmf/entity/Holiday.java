@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="holidays")
 public class Holiday extends BaseEntity {
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private String day;
     private String reason;
     @Enumerated(EnumType.STRING)
