@@ -1,20 +1,10 @@
 package com.dgmf.config;
 
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 public class ProjectSecurityConfig {
@@ -58,14 +48,14 @@ public class ProjectSecurityConfig {
     }
 
     // PasswordEncoder Bean
-    @Bean
+    /*@Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
+    }*/
 
     // Spring Security In-Memory Authentication : https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/in-memory.html
     // Configure Multiple inMemory Users (Not Recommended for Production)
-    @Bean
+    /*@Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         UserDetails admin = User.builder()
                 .username("admin")
@@ -80,6 +70,6 @@ public class ProjectSecurityConfig {
                 .build();
 
         return new InMemoryUserDetailsManager(admin, user);
-    }
+    }*/
 
 }
