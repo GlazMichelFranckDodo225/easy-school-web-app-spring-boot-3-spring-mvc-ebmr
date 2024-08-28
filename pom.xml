@@ -14,7 +14,7 @@
 	<name>easy-school-web-app-spring-boot-3-spring-mvc-ebmr</name>
 	<description>Easy School Web Application | Master Spring Boot 3 and Spring MVC</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>22</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
