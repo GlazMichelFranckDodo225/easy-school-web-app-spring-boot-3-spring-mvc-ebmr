@@ -3,27 +3,27 @@ create database db_easyschool_web_app_spring_mvc_ebmr;
 use db_easyschool_web_app_spring_mvc_ebmr;
 
 CREATE TABLE IF NOT EXISTS `contact_msg` (
-  `contact_id` int AUTO_INCREMENT  PRIMARY KEY,
-  `name` varchar(100) NOT NULL,
-  `mobile_num` varchar(10) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `subject` varchar(100) NOT NULL,
-  `message` varchar(500) NOT NULL,
-  `status` varchar(10) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL,
-  `created_by` varchar(50) NOT NULL,
-  `updated_at` TIMESTAMP DEFAULT NULL,
-  `updated_by` varchar(50) DEFAULT NULL
+    `contact_id` int AUTO_INCREMENT  PRIMARY KEY,
+    `name` varchar(100) NOT NULL,
+    `mobile_num` varchar(10) NOT NULL,
+    `email` varchar(100) NOT NULL,
+    `subject` varchar(100) NOT NULL,
+    `message` varchar(500) NOT NULL,
+    `status` varchar(10) NOT NULL,
+    `created_at` TIMESTAMP NOT NULL,
+    `created_by` varchar(50) NOT NULL,
+    `updated_at` TIMESTAMP DEFAULT NULL,
+    `updated_by` varchar(50) DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `holidays` (
-  `day` varchar(20) NOT NULL,
-  `reason` varchar(100) NOT NULL,
-  `type` varchar(20) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL,
-  `created_by` varchar(50) NOT NULL,
-  `updated_at` TIMESTAMP DEFAULT NULL,
-  `updated_by` varchar(50) DEFAULT NULL
+    `day` varchar(20) NOT NULL,
+    `reason` varchar(100) NOT NULL,
+    `type` varchar(20) NOT NULL,
+    `created_at` TIMESTAMP NOT NULL,
+    `created_by` varchar(50) NOT NULL,
+    `updated_at` TIMESTAMP DEFAULT NULL,
+    `updated_by` varchar(50) DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `roles` (
@@ -66,3 +66,18 @@ CREATE TABLE IF NOT EXISTS `person` (
     FOREIGN KEY (role_id) REFERENCES roles(role_id),
     FOREIGN KEY (address_id) REFERENCES address(address_id)
 );
+
+CREATE TABLE IF NOT EXISTS `class` (
+    `class_id` int NOT NULL AUTO_INCREMENT,
+    `name` varchar(100) NOT NULL,
+    `created_at` TIMESTAMP NOT NULL,
+    `created_by` varchar(50) NOT NULL,
+    `updated_at` TIMESTAMP DEFAULT NULL,
+    `updated_by` varchar(50) DEFAULT NULL,
+    PRIMARY KEY (`class_id`)
+);
+
+ALTER TABLE `person`
+ADD COLUMN `class_id` int NULL AFTER `address_id`,
+ADD CONSTRAINT `FK_CLASS_CLASS_ID` FOREIGN KEY (`class_id`)
+REFERENCES `class`(`class_id`);
