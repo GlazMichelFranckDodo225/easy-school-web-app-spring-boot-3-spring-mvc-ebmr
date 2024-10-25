@@ -100,4 +100,4 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayStudents?classId="+eazyClass.getClassId());
         return modelAndView;
     }
-}   
+}
