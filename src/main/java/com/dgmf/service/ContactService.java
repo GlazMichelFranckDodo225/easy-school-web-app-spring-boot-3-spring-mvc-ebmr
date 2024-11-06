@@ -5,6 +5,10 @@ import com.dgmf.entity.Contact;
 import com.dgmf.repository.ContactRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +21,7 @@ Logger static property in the class at compilation time.
 @Slf4j
 @Service
 public class ContactService {
+
     @Autowired
     private ContactRepository contactRepository;
 
@@ -29,18 +34,20 @@ public class ContactService {
         boolean isSaved = false;
         contact.setStatus(EazySchoolConstants.OPEN);
         Contact savedContact = contactRepository.save(contact);
-
         if(null != savedContact && savedContact.getContactId()>0) {
             isSaved = true;
         }
-
         return isSaved;
     }
 
-    public List<Contact> findMsgsWithOpenStatus(){
-        List<Contact> contactMsgs = contactRepository.findByStatus(EazySchoolConstants.OPEN);
-
-        return contactMsgs;
+    public Page<Contact> findMsgsWithOpenStatus(int pageNum,String sortField, String sortDir){
+        int pageSize = 5;
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
+                sortDir.equals("asc") ? Sort.by(sortField).ascending()
+                        : Sort.by(sortField).descending());
+        Page<Contact> msgPage = contactRepository.findByStatus(
+                EazySchoolConstants.OPEN,pageable);
+        return msgPage;
     }
 
     public boolean updateMsgStatus(int contactId){
@@ -50,11 +57,9 @@ public class ContactService {
             contact1.setStatus(EazySchoolConstants.CLOSE);
         });
         Contact updatedContact = contactRepository.save(contact.get());
-
         if(null != updatedContact && updatedContact.getUpdatedBy()!=null) {
             isUpdated = true;
         }
-
         return isUpdated;
     }
 
