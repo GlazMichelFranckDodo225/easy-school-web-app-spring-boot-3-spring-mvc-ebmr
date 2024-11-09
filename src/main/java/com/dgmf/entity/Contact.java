@@ -7,28 +7,47 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 /*
 @Data annotation is provided by Lombok library which generates getter, setter,
 equals(), hashCode(), toString() methods & Constructor at compile time.
 This makes our code short and clean.
 * */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name="contact_msg")
-public class Contact extends BaseEntity {
-    // New Version Since Hibernate 6.2
-    /*@Id
-    @UuidGenerator
-    @Column(name = "contact_id")
-    private UUID contactId;*/
+@NamedQueries({
+        @NamedQuery(name = "Contact.findOpenMsgs",
+                query = "SELECT c FROM Contact c WHERE c.status = :status"),
+        @NamedQuery(name = "Contact.updateMsgStatus",
+                query = "UPDATE Contact c SET c.status = ?1 WHERE c.contactId = ?2")
+})
+@SqlResultSetMappings({
+        @SqlResultSetMapping(name = "SqlResultSetMapping.count", columns = @ColumnResult(name = "cnt"))
+})
+@NamedNativeQueries({
+        @NamedNativeQuery(name = "Contact.findOpenMsgsNative",
+                query = "SELECT * FROM contact_msg c WHERE c.status = :status"
+                ,resultClass = Contact.class),
+        @NamedNativeQuery(name = "Contact.findOpenMsgsNative.count",
+                query = "select count(*) as cnt from contact_msg c where c.status = :status",
+                resultSetMapping = "SqlResultSetMapping.count"),
+        /*Spring Data JPA doesn’t support dynamic sorting for native queries.
+        Doing that would require Spring Data to analyze the provided statement and generate
+        the ORDER BY clause in the database-specific dialect. This would be a very complex operation
+        and is currently not supported by Spring Data JPA.*/
+        @NamedNativeQuery(name = "Contact.updateMsgStatusNative",
+                query = "UPDATE contact_msg c SET c.status = ?1 WHERE c.contact_id = ?2")
+})
+public class Contact extends BaseEntity{
 
-    // Deprecated Since Hibernate 6.2
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
+    @GenericGenerator(name = "native",strategy = "native")
     @Column(name = "contact_id")
     private int contactId;
+
     /*
     * @NotNull: Checks if a given field is not null but allows empty values & zero elements inside collections.
       @NotEmpty: Checks if a given field is not null and its size/length is greater than zero.
@@ -55,4 +74,5 @@ public class Contact extends BaseEntity {
     private String message;
 
     private String status;
+
 }

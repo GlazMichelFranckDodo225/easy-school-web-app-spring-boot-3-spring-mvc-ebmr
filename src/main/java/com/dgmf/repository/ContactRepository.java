@@ -21,14 +21,30 @@ DB related operations and
 // public interface ContactRepository extends CrudRepository<Contact, Integer> {
 public interface ContactRepository extends JpaRepository<Contact, Integer> {
     List<Contact> findByStatus(String status);
+
     // @Query("SELECT c FROM Contact c WHERE c.status = :status")
     @Query(
             value = "SELECT * FROM contact_msg c WHERE c.status = :status",
             nativeQuery = true
     )
     Page<Contact> findByStatus(@Param("status") String status, Pageable pageable);
+
     @Transactional
     @Modifying
     @Query("UPDATE Contact c SET c.status = ?1 WHERE c.contactId = ?2")
     int updateStatusById(String status, int id);
+
+    Page<Contact> findOpenMsgs(@Param("status") String status, Pageable pageable);
+
+    @Transactional
+    @Modifying
+    int updateMsgStatus(String status, int id);
+
+    @Query(nativeQuery = true)
+    Page<Contact> findOpenMsgsNative(@Param("status") String status, Pageable pageable);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true)
+    int updateMsgStatusNative(String status, int id);
 }
