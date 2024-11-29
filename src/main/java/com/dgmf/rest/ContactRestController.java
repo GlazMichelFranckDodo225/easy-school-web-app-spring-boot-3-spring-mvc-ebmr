@@ -1,5 +1,6 @@
 package com.dgmf.rest;
 
+import com.dgmf.constant.EazySchoolConstants;
 import com.dgmf.entity.Contact;
 import com.dgmf.entity.Response;
 import com.dgmf.repository.ContactRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -69,6 +71,27 @@ public class ContactRestController {
         Response response = new Response();
         response.setStatusCode("200");
         response.setStatusMsg("Message successfully deleted");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+    }
+
+    @PatchMapping("/closeMsg")
+    public ResponseEntity<Response> closeMsg(@RequestBody Contact contactReq){
+        Response response = new Response();
+        Optional<Contact> contact = contactRepository.findById(contactReq.getContactId());
+        if(contact.isPresent()){
+            contact.get().setStatus(EazySchoolConstants.CLOSE);
+            contactRepository.save(contact.get());
+        }else{
+            response.setStatusCode("400");
+            response.setStatusMsg("Invalid Contact ID received");
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(response);
+        }
+        response.setStatusCode("200");
+        response.setStatusMsg("Message successfully closed");
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
