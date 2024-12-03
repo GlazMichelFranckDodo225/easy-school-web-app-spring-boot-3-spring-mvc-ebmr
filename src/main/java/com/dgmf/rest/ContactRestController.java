@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 // @Controller
 @RestController
 @RequestMapping(path = "/api/contact")
+@CrossOrigin("*")
 public class ContactRestController {
     @Autowired
     ContactRepository contactRepository;
