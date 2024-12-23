@@ -19,7 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.Period;
 
 @Slf4j
-@Controller
+// @Controller
+@Controller("profileControllerBean")
 @RequiredArgsConstructor
 public class ProfileController {
     private final PersonRepository personRepository;
